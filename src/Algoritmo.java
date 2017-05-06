@@ -256,7 +256,7 @@ public class Algoritmo {
 		double gene = genesMut.get(geneSortiado);
 		
 		if(probMut <= Principal.probMut){
-			System.out.println("-------------MUTAÇÃO------------");
+			//System.out.println("-------------MUTAÇÃO------------");
 			gene = gene + gene*probValue; 
 		}
 		return genesMut;

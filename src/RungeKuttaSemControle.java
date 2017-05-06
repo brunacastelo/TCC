@@ -37,7 +37,7 @@ public class RungeKuttaSemControle {
 			String tString = df.format(t); 
 			if(0 <= t  && t <= 90){
 				setVariaveisFavoraveis();
-				//setVariaveisDesfavoraveis();
+				//setVariaveisIntermediaria();
 				//setVariaveisDesfavoraveis();
 			}
 			else if(90 < t  && t <= 180){
@@ -64,10 +64,10 @@ public class RungeKuttaSemControle {
 				F1y.put(tString, 192.2);
 				F2y.put(tString, 1345.13);*/
 				//y0=[88.6550   324.79    48.265   164.103];%desfavorável*/
-				/*Ey.add(88.6550);
-				Ay.add(324.79);
-				F1y.add(48.265);
-				F2y.add(164.103);*/
+				/*Ey.put(tString, 88.6550);
+				Ay.put(tString, 324.79);
+				F1y.put(tString, 48.265);
+				F2y.put(tString, 164.103);*/
 				/*y0=[94.1539   268.609   100.829  504.147];%intermediário*/				  				
 				Ey.put(tString, 94.1539);
 				Ay.put(tString, 268.609);
@@ -78,10 +78,39 @@ public class RungeKuttaSemControle {
 				continue;
 			}
 			
-			double ce = 0.0; // taxa por unidade de indivíduo de mortalidade adicional por causa do controle na população de ovos
-			double ca = 0.0; // taxa por unidade de indivíduo de mortalidade adicional por causa do controle na população aquática
-			double cf1 = 0.0; // taxa por unidade de indivíduo de mortalidade adicional por causa do controle na população de fêmeas pré-repasto sanguíneo
-			double cf2 = 0.0; // taxa por unidade de indivíduo de mortalidade adicional por causa do controle na população de fêmeas pós-repasto sanguíneo
+			
+			double u1 = 0.274; 
+			double u2 = 1.0;
+			double u3 = 49.237;
+			double u4 = 191.523;
+						
+			
+			/* Lilian
+	        double u1 = 0.47547; 
+			double u2 = 0.39998;
+			double u3 = 82.889;
+			double u4 = 22.428;*/
+			
+			double ce;
+			double ca;
+			double cf1;
+			double cf2;
+			
+			if(t <= u3){
+				ce = u1;
+				ca = u1;
+			} else {
+				ce = 0;
+				ca = 0;
+			}
+			
+			if(t <= u4){
+				cf1 = u2;
+				cf2 = u2;
+			} else {
+				cf1 = 0;
+				cf2 = 0;
+			}
 
 			double e = 0, a = 0, f1 = 0, f2 = 0;
 			/** Solver K1 */
@@ -170,7 +199,7 @@ public class RungeKuttaSemControle {
 	
 	private static void salvarArquivo(LinkedHashMap<String, Double> Ey, HashMap<String, Double> Ay, HashMap<String, Double> F1y, HashMap<String, Double> F2y) {
 		try {
-			BufferedWriter buffWriteEy = new BufferedWriter(new FileWriter("Ey.csv", true));
+			/*BufferedWriter buffWriteEy = new BufferedWriter(new FileWriter("Ey.csv", true));
 			String tempEy = "";
 			for (Entry<String, Double> valueEy : Ey.entrySet()) {
 				tempEy += valueEy.getValue() + ";";
@@ -199,7 +228,7 @@ public class RungeKuttaSemControle {
 			buffWriteF1y.newLine();
 			buffWriteF1y.write(tempF1y);
 			buffWriteF1y.close();
-			
+			*/
 			BufferedWriter buffWriteF2y = new BufferedWriter(new FileWriter("F2y.csv", true));
 			String tempF2y = "";
 			for (Entry<String, Double> valueF2y : F2y.entrySet()) {

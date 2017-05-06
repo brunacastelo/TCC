@@ -71,6 +71,16 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
 				return 0;
 			}
 		}
+		if (fieldSort.equals("fenotipo1")) {
+			if (outroIndividuo == null
+					|| this.fenotipo.get(1) < outroIndividuo.getFenotipo().get(1)) {
+				return -1;
+			} else if (this.fenotipo.get(1) > outroIndividuo.getFenotipo().get(1)) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
 		return 1;
 	}
 

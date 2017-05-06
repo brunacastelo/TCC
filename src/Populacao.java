@@ -37,12 +37,22 @@ public class Populacao extends Algoritmo{
 			ArrayList<Double> genotipo = new ArrayList<Double>();
 			
 			for (int j = 0; j < quantGene; j++) {
-				double rand = ThreadLocalRandom.current().nextDouble(0, 1);
-				rand = new BigDecimal(rand).setScale(5, RoundingMode.HALF_UP).doubleValue();
-				genotipo.add(rand);
+				if(j == 0){
+					double rand = ThreadLocalRandom.current().nextDouble(0, 0.4);
+					rand = new BigDecimal(rand).setScale(5, RoundingMode.HALF_UP).doubleValue();
+					genotipo.add(rand);
+				} else if(j == 1){
+					double rand = ThreadLocalRandom.current().nextDouble(0, 1);
+					rand = new BigDecimal(rand).setScale(5, RoundingMode.HALF_UP).doubleValue();
+					genotipo.add(rand);
+				} else {
+					double rand = ThreadLocalRandom.current().nextDouble(0, 90);
+					rand = new BigDecimal(rand).setScale(5, RoundingMode.HALF_UP).doubleValue();
+					genotipo.add(rand);
+				}
 			}
 			
-			LinkedHashMap<String, Double> F2y = RungeKutta.rungeKuttaEvalue(0.0, 0.0, 0.0, 0.0);
+			LinkedHashMap<String, Double> F2y = RungeKutta.rungeKuttaEvalue(genotipo.get(0), genotipo.get(1), genotipo.get(2), genotipo.get(3));
 			ArrayList<Double> pontos = new ArrayList<Double>();
 			for (Double ponto : F2y.values()) {
 				pontos.add(ponto);
@@ -72,14 +82,6 @@ public class Populacao extends Algoritmo{
 		this.tamPopulacao = tamPopulacao;
 	}
 
-	public int getQuantGene() {
-		return quantGene;
-	}
-
-	public void setQuantGene(int quantGene) {
-		this.quantGene = quantGene;
-	}
-
 	public void setFront(HashMap<Integer, ArrayList<Individuo>> front, int key) {
 		HashMap<Integer, ArrayList<Individuo>> frontAux = getFront();
 		if(!frontAux.isEmpty()){
@@ -98,7 +100,15 @@ public class Populacao extends Algoritmo{
 			this.front.putAll(front);
 		}
 	}
-	
+
+	public int getQuantGene() {
+		return quantGene;
+	}
+
+	public void setQuantGene(int quantGene) {
+		this.quantGene = quantGene;
+	}
+
 	public void putFront(Integer key, ArrayList<Individuo> obj) {
 		front.put(key, obj);
 	}
@@ -107,7 +117,7 @@ public class Populacao extends Algoritmo{
 		return front;
 	}
 	
-	public ArrayList<Individuo> getIndividuosFront(int nivelFront) {
+	public ArrayList<Individuo> getIndividuosFront() {
 		return populacao;	
 	}
 

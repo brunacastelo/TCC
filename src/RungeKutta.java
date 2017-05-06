@@ -32,9 +32,9 @@ public class RungeKutta {
 		for (double t = 0.0; t <= 360.0; t = t + deltat) {
 			String tString = df.format(t); 
 			if(0 <= t  && t <= 90){
-				setVariaveisFavoraveis();
-				//setVariaveisDesfavoraveis();
-				//setVariaveisDesfavoraveis();
+				//setVariaveisFavoraveis();
+				//setVariaveisIntermediaria();
+				setVariaveisDesfavoraveis();
 			}
 			else if(90 < t  && t <= 180){
 				//setVariaveisFavoraveis();
@@ -42,9 +42,9 @@ public class RungeKutta {
 				//setVariaveisDesfavoraveis();
 			}
 			else if(180 < t  && t <= 270){
-				//setVariaveisFavoraveis();
+				setVariaveisFavoraveis();
 				//setVariaveisIntermediaria();
-				setVariaveisDesfavoraveis();
+				//setVariaveisDesfavoraveis();
 			}
 			else if(270 < t  && t <= 360){
 				//setVariaveisFavoraveis();
@@ -53,18 +53,17 @@ public class RungeKutta {
 			}
 			
 			if (t == 0){
-				
 				/*y0=[96.3      263.5     192.2    1345.13];%favorável*/
 				/*Ey.put(tString, 96.3);
 				Ay.put(tString, 263.5);
 				F1y.put(tString, 192.2);
 				F2y.put(tString, 1345.13);*/
-				//y0=[88.6550   324.79    48.265   164.103];%desfavorável*/
-				/*Ey.add(88.6550);
-				Ay.add(324.79);
-				F1y.add(48.265);
-				F2y.add(164.103);*/
-				/*y0=[94.1539   268.609   100.829  504.147];%intermediário*/				  				
+				/*y0=[88.6550   324.79    48.265   164.103];%desfavorável
+				Ey.put(tString, 88.6550);
+				Ay.put(tString, 324.79);
+				F1y.put(tString, 48.265);
+				F2y.put(tString, 164.103);*/
+				/*y0=[94.1539   268.609   100.829  504.147];%intermediário*/			  				
 				Ey.put(tString, 94.1539);
 				Ay.put(tString, 268.609);
 				F1y.put(tString, 100.829);
@@ -74,14 +73,14 @@ public class RungeKutta {
 				continue;
 			}
 			
-			double aux1 = u1;
-			double aux2 = u2;
+			double aux1 = 0;
+			double aux2 = 0;
 			
-			if(t >= u3){
-				aux1 = 0;
+			if(t <= u3){
+				aux1 = u1;
 			}
-			if(t >= u4){
-				aux2 = 0;
+			if(t <= u4){
+				aux2 = u2;
 			}
 			
 			double ce = aux1; // taxa por unidade de indivíduo de mortalidade adicional por causa do controle na população de ovos
